@@ -1,14 +1,15 @@
 describe('Input form', () => {
   beforeEach(() => {
-    cy.visit('/')
+    cy.seedAndVisit([])
   })
+
   it('focuses input on load', () => {
     cy.focused()
       .should('have.class', 'new-todo')
   })
 
   it('accepts input', () => {
-    const typedText = "Buy Soda"
+    const typedText = 'Buy Milk'
 
     cy.get('.new-todo')
       .type(typedText)
@@ -20,8 +21,8 @@ describe('Input form', () => {
       cy.server()
     })
 
-    const itemText = 'Buy a cat'
     it('Adds a new todo on submit', () => {
+      const itemText = 'Buy eggs'
       cy.route('POST', '/api/todos', {
         name: itemText,
         id: 1,
@@ -38,7 +39,7 @@ describe('Input form', () => {
         .and('contain', itemText)
     })
 
-    it('Renders an error message on failed submission', () => {
+    it('Shows an error message on a failed submission', () => {
       cy.route({
         url: '/api/todos',
         method: 'POST',
@@ -49,11 +50,11 @@ describe('Input form', () => {
       cy.get('.new-todo')
         .type('test{enter}')
 
-        cy.get('.todo-list li')
-          .should('not.exist')
+      cy.get('.todo-list li')
+        .should('not.exist')
 
-        cy.get('.error')
-          .should('be.visible')
+      cy.get('.error')
+        .should('be.visible')
     })
   })
 })
