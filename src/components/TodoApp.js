@@ -54,14 +54,15 @@ handleToggle (id) {
 handleTodoSubmit (evt) {
   evt.preventDefault()
   const newTodo = {name: this.state.currentTodo, isComplete: false}
+  setTimeout(() => {
   saveTodo(newTodo)
     .then(({data}) => this.setState({
       todos: this.state.todos.concat(data),
       currentTodo: ''
     }))
     .catch(() => this.setState({error: true}))
+  }, 4500)
 }
-
   render () {
     const remaining = this.state.todos.filter(t => !t.isComplete).length
     return (

@@ -20,7 +20,7 @@ describe('Footer', () => {
     it.only('Handles filter links', () => {
       const filters = [
         {link: 'Active', expectedLength: 3},
-        {link: 'Completed', expectedLength: 1}
+        {link: 'Completed', expectedLength: 1},
         {link: 'All', expectedLength: 4}
       ]
       cy.wrap(filters)
